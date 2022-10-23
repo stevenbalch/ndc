@@ -1,0 +1,53 @@
+#!/usr/bin/expect -f
+
+log_user 0
+
+# Name     :    ndc-f.exp
+# Author   :    Steven W. Balch
+# Created  :    08/26/04
+# Version  :    1.01
+
+set policy [lindex $argv 0]
+set glist [lindex $argv 1]
+set ACCESS [lindex $argv 2]
+set UNAMESTATUS [lindex $argv 3]
+set USERNAME [lindex $argv 4]
+set PASSWORD [lindex $argv 5]
+set EPASSTATUS [lindex $argv 6]
+set EPASSWORD [lindex $argv 7]
+
+set DIR [exec pwd]
+
+puts ""
+puts "Opening Network Group Policy: $policy"
+puts ""
+
+if [catch {set glistrw [open $glist r]} err] {
+puts "open error: \"$err\""
+} else {
+while {[gets $glistrw line] >= 0} {
+set firstsplit [split $line ,]
+set ip [lindex $firstsplit 0]
+
+
+if [catch {eval exec $DIR/ndc.exp $policy $ip $ACCESS $UNAMESTATUS $USERNAME $PASSWORD $EPASSTATUS $EPASSWORD > /dev/null &} err] {
+puts "Unable to Deploy Policy: $policy to $ip"
+puts $err
+} else {
+puts "Deploying $policy to $ip"
+       }
+
+
+sleep 2
+                          
+   					  	          } 		
+       } 
+
+puts ""
+puts "Network Device Group Policy Change Completed"
+puts ""
+
+puts "Closing Application"
+puts ""
+               
+                           
