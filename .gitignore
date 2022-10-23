@@ -1,2 +1,2 @@
 policy/device-policy/*.policy
-policy/saved-policy/*
+policy/saved-policy/*.policy.*
