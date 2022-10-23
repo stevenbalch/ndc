@@ -1,2 +1,5 @@
+!policy/
+!policy/device-policy/
+!policy/saved-policy/
 policy/device-policy/*.policy
 policy/saved-policy/*.policy.*
